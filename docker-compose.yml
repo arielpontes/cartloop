@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  db:
+    container_name: cartloop.db
+    image: postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  api:
+    container_name: cartloop.api
+    build: .
+    entrypoint: ./entrypoint.sh
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
